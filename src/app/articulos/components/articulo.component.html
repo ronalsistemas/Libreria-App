@@ -1,0 +1,36 @@
+<div class="container my-5">
+  <h2>Listado de Articulos</h2>
+  <div class="row">
+    <div class="col">
+      <articulo-form (newArticuloEvent)="addArticulo($event)" [articulo]="articuloSelected"></articulo-form>
+    </div>
+    <div class="col">
+      @if (articulos.length > 0) {
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (articulo of articulos; track $index) {
+          <tr>
+            <td> {{articulo.nombre}} </td>
+            <td> {{articulo.descripcion}} </td>
+            <td> {{articulo.precio}} </td>
+            <td><button (click)="onUpdateArticulo(articulo)" class="btn btn-sm btn-secondary">Editar</button></td>
+            <td><button (click)="onRemoveArticulo(articulo.id)" class="btn btn-sm btn-danger">Eliminar</button></td>
+          </tr>
+          }
+        </tbody>
+      </table>
+      } @else {
+      <div class="alert alert-info">Lo sentimos no hay registros en el sistema!</div>
+      }
+    </div>
+  </div>
+</div>
