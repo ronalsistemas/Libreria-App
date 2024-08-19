@@ -23,18 +23,24 @@ export class ArticuloComponent implements OnInit {
   }
 
   //Agregar producto a la lista
-  addArticulo(articulo: Articulo){
+  addArticulo(articulo: Articulo) {
     if (articulo.id > 0) {
-      //Actualizar articulo
-      this.articulos = this.articulos.map(arti => {
-        if (arti.id == articulo.id) {
-          return { ...articulo };
-        }
-        return arti;
-      })
+      //Actualizar articulo en backend
+      this.service.update(articulo).subscribe(articuloUpdated => {
+        //Actualizar articulo en la tabla de frontend
+        this.articulos = this.articulos.map(arti => {
+          if (arti.id == articulo.id) {
+            return { ...articulo };
+          }
+          return arti;
+        });
+      });
     } else {
-      //Guardar articulo
-    this.articulos = [... this.articulos, { ...articulo, id: new Date().getTime() }];
+      //Guardar articulo en backend
+      this.service.create(articulo).subscribe(articuloNew => {
+        //Guardar articulo en la tabla de frontend
+        this.articulos = [... this.articulos, { ...articuloNew }];
+      })
     }
     //Activar el botón crear
     this.articuloSelected = new Articulo();
@@ -42,11 +48,15 @@ export class ArticuloComponent implements OnInit {
 
   //Eliminar articulo
   onRemoveArticulo(id: number): void {
-    this.articulos = this.articulos.filter(articulo => articulo.id != id);
+    //Eliminar articulo en backend
+    this.service.remove(id).subscribe(() => {
+      //Eliminar articulo en la tabla de frontend
+      this.articulos = this.articulos.filter(articulo => articulo.id != id);
+    })
   }
 
   //Seleccionar articulo para actualizar
   onUpdateArticulo(articuloRow: Articulo): void {
-    this.articuloSelected = {... articuloRow};
+    this.articuloSelected = { ...articuloRow };
   }
 }

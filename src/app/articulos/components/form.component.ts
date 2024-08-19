@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Articulo } from '../models/articulo';
 import { CommonModule } from '@angular/common';
 
@@ -23,13 +23,17 @@ export class FormComponent {
   @Output() newArticuloEvent = new EventEmitter();
 
   //Registrar articulo
-  onSubmit(): void {
-    this.newArticuloEvent.emit(this.articulo);
-    console.log(this.articulo);
+  onSubmit(articuloForm: NgForm): void {
+    if (articuloForm.valid) {
+      this.newArticuloEvent.emit(this.articulo);
+      console.log(this.articulo);
+    }
+    articuloForm.reset();
+    articuloForm.resetForm();
   }
 
   //Limpiar formulario
-  clean(): void{
+  clean(): void {
     this.articulo = {
       id: 0,
       nombre: '',
