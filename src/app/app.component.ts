@@ -11,7 +11,5 @@ import { ArticuloComponent } from './articulos/components/articulo.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Bienvenido a la Libreria Ronal';
 
-  articulos: string[] = ['Cuaderno', 'Borrador', 'Lapicero'];
 }

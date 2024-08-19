@@ -23,14 +23,14 @@ export class ArticuloComponent implements OnInit {
   }
 
   //Agregar producto a la lista
-  addArticulo(articulo: Articulo) {
+  addArticulo(articulo: Articulo): void {
     if (articulo.id > 0) {
       //Actualizar articulo en backend
       this.service.update(articulo).subscribe(articuloUpdated => {
         //Actualizar articulo en la tabla de frontend
         this.articulos = this.articulos.map(arti => {
           if (arti.id == articulo.id) {
-            return { ...articulo };
+            return { ...articuloUpdated};
           }
           return arti;
         });

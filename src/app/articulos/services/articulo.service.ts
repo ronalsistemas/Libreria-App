@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Articulo } from '../models/articulo';
-import { map, Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -8,30 +8,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ArticuloService {
 
-  private articulos: Articulo[] = [
-    {
-      id: 1,
-      nombre: 'Cuaderno',
-      descripcion: 'Tiene hojas doble raya',
-      precio: 7
-    },
-    {
-      id: 2,
-      nombre: 'Borrador',
-      descripcion: 'Es de color blanco',
-      precio: 2
-    }
-  ];
-
-  private url: string = 'http://localhost:8080/products';
+  private url: string = 'http://localhost:8009/api/v1/articulos';
 
   constructor(private http: HttpClient) { }
 
   //Listar articulos consumiendo api desde el backend
   findAll(): Observable<Articulo[]> {
-    return this.http.get(this.url).pipe(
-      map((response: any) => response._embedded.products as Articulo[]),
-    );
+    return this.http.get<Articulo[]>(this.url);
   }
 
   //Guardar articulos consumiendo api desde el backend

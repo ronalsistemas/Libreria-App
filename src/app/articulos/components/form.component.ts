@@ -17,7 +17,7 @@ export class FormComponent {
     id: 0,
     nombre: '',
     descripcion: '',
-    precio: 0
+    precio: 0,
   };
 
   @Output() newArticuloEvent = new EventEmitter();
@@ -38,7 +38,7 @@ export class FormComponent {
       id: 0,
       nombre: '',
       descripcion: '',
-      precio: 0
+      precio: 0,
     }
   }
 }
